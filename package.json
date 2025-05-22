@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "v20.15.1"
+    "node": "v20.19.2"
   },
   "dependencies": {
     "@fastify/view": "^11.1.0",
