@@ -1,0 +1,26 @@
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "id": "teste1234",
+    "name": "Italo Siqueira",
+    "email": "siqueira..italo@gmail.com",
+    "imageUrl" : "https://lh3.googleusercontent.com/a/ACg8ocIMgelIdJt3NovkckexPC4Mlg9TmFFuXPMcGyqTMOBvHAFRSpu1Ig=s288-c-no"
+    
+}
+
+###
+GET http://localhost:8080/bingo
+Content-Type: application/json
+
+###
+GET http://localhost:8080
+
+
+###
+POST http://localhost:8080/bingo/clear-game
+Content-Type: application/json
+
+{
+
+}
