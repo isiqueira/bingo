@@ -5,14 +5,16 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "start:dev": "nodemon src/index.js"
+    "start:dev": "node --watch src/index.js",
+    "test": "node --experimental-test-coverage --test test/ ",
+    "test:dev": "node --watch --test test/",
+    "test:debug": "node --inspect --test --watch test/"
   },
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "v20.19.2"
+    "node": "v20"
   },
   "dependencies": {
     "@fastify/view": "^11.1.0",
