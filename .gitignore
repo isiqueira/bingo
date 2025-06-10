@@ -19,3 +19,6 @@ lerna-debug.log*
 # DataConnect files
 *dataconnect*
 
+# env files
+.env
+.env.local

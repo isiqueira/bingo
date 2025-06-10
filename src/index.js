@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { dirname } from 'path';
@@ -6,8 +5,9 @@ import view from '@fastify/view';
 import pug from 'pug'
 import Fastify from 'fastify';
 import { randomUUID } from "crypto";
-const PORT = 8080;
+import 'dotenv/config';
 
+const PORT = process.env.PORT || 3000;
 const webapp = Fastify({ logger: true });
 
 webapp.register(view, {
@@ -17,15 +17,31 @@ webapp.register(view, {
    templates: dirname('templates')
 } );
 
+console.log('Starting server...');
+
+/**
+ * Firebase configuration object containing keys and identifiers for connecting to a Firebase project.
+ * All values are sourced from environment variables for security.
+ * 
+ * @type {Object}
+ * @property {string} apiKey - Firebase API key.
+ * @property {string} authDomain - Firebase Auth domain.
+ * @property {string} projectId - Firebase project ID.
+ * @property {string} storageBucket - Firebase storage bucket name.
+ * @property {string} messagingSenderId - Firebase Cloud Messaging sender ID.
+ * @property {string} appId - Firebase app ID.
+ * @property {string} measurementId - Firebase Analytics measurement ID.
+ * @property {string} databaseURL - Firebase Realtime Database URL.
+ */
 const firebaseConfig = {
-  apiKey: "AIzaSyA5rz7wxoVPFd4iJOBObTUMQi0hpgsVLsU",
-  authDomain: "bingo-60902.firebaseapp.com",
-  projectId: "bingo-60902",
-  storageBucket: "bingo-60902.firebasestorage.app",
-  messagingSenderId: "535909421516",
-  appId: "1:535909421516:web:8360a604a8ef4d94f58d69",
-  measurementId: "G-3SL6LP087Y",
-  databaseURL: "https://bingo-60902-default-rtdb.firebaseio.com/",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
 };
 
 // Initialize Firebase
@@ -57,11 +73,6 @@ function getUsers() {
   });
 }
 
-
-
-writeUserData('isiqueira2', 'Italo', 'Siqueira', 'siqueira.italo@gmail.com', 'https://lh3.googleusercontent.com/a/ACg8ocIMgelIdJt3NovkckexPC4Mlg9TmFFuXPMcGyqTMOBvHAFRSpu1Ig=s288-c-no' );
-getUsers();
-
 webapp.get('/bingo', async (request, reply) => {
   const dbRef = ref(database);
   onValue(dbRef, (snapshot) => {
@@ -79,7 +90,6 @@ webapp.post('/bingo/clear-game', async (request, reply) => {
 });
 
 webapp.post('/bingo', async (request, reply) => {
-  const dbRef = ref(database);
   writeNewNumber(request.body.number);
 });
 
