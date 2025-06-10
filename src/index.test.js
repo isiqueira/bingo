@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import { randomUUID } from 'crypto';
+import { faker } from '@faker-js/faker';
 import { set, remove, ref, onValue } from 'firebase/database';
 const mod = require('./index.js');
 
@@ -31,9 +31,9 @@ describe('Bingo Server', () => {
 
     test('writeUserData calls set with correct params', () => {
         const userId = 'abc';
-        const name = 'Test';
-        const email = 'test@example.com';
-        const imageUrl = 'http://img';
+        const name = faker.person.fullName();
+        const email = faker.internet.email();
+        const imageUrl = faker.image.avatar();
         writeUserData(userId, name, email, imageUrl);
         expect(set).toHaveBeenCalledWith(
             expect.anything(),
